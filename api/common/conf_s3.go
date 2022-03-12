@@ -48,6 +48,7 @@ type S3Config struct {
 	SseC       string
 	SseCDigest string
 	ACL        string
+	MPU        uint32
 
 	Subdomain bool
 

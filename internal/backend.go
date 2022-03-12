@@ -29,6 +29,7 @@ type Capabilities struct {
 	// set this to true to disable parallel upload
 	NoParallelMultipart bool
 	MaxMultipartSize    uint64
+	MaxMultipartPart    uint32
 	// indicates that the blob store has native support for directories
 	DirBlob bool
 	Name    string

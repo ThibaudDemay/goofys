@@ -64,6 +64,7 @@ func NewS3(bucket string, flags *FlagStorage, config *S3Config) (*S3Backend, err
 		cap: Capabilities{
 			Name:             "s3",
 			MaxMultipartSize: 5 * 1024 * 1024 * 1024,
+			MaxMultipartPart: config.MPU,
 		},
 	}
 
@@ -847,7 +848,7 @@ func (s *S3Backend) MultipartBlobBegin(param *MultipartBlobBeginInput) (*Multipa
 		Key:      &param.Key,
 		Metadata: metadataToLower(param.Metadata),
 		UploadId: resp.UploadId,
-		Parts:    make([]*string, 10000), // at most 10K parts
+		Parts:    make([]*string, s.config.MPU), // at most 10K parts
 	}, nil
 }
 

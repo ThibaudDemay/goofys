@@ -185,10 +185,13 @@ func (fh *FileHandle) waitForCreateMPU() (err error) {
 
 func (fh *FileHandle) partSize() uint64 {
 	var size uint64
+	maxParts := fh.cloud.Capabilities().MaxMultipartPart
+	partStep1 := uint32(0.1 * float64(maxParts))
+	partStep2 := uint32(0.2 * float64(maxParts))
 
-	if fh.lastPartId < 1000 {
+	if fh.lastPartId < partStep1 {
 		size = 5 * 1024 * 1024
-	} else if fh.lastPartId < 2000 {
+	} else if fh.lastPartId < partStep2 {
 		size = 25 * 1024 * 1024
 	} else {
 		size = 125 * 1024 * 1024
